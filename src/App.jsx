@@ -236,10 +236,43 @@ export default function GA4LearningDemo() {
 
                 <div className="mt-5 flex gap-3 flex-wrap">
                   <button
-                    onClick={() => handleEvent('view_item')}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-xl"
-                  >
-                    View Item
+                   
+  onClick={() => {
+
+    window.dataLayer = window.dataLayer || [];
+
+    window.dataLayer.push({
+      event: "view_item",
+
+      ecommerce: {
+        currency: "INR",
+
+        value: Number(
+          product.price.replace('₹', '').replace(',', '')
+        ),
+
+        items: [
+          {
+            item_name: product.name,
+
+            item_category: product.category,
+
+            price: Number(
+              product.price.replace('₹', '').replace(',', '')
+            ),
+
+            quantity: 1
+          }
+        ]
+      }
+    });
+
+    alert(`Viewed ${product.name}`);
+  }}
+  className="bg-blue-600 text-white px-4 py-2 rounded-xl"
+>
+  View Item
+
                   </button>
 
                   <button
