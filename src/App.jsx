@@ -250,11 +250,45 @@ export default function GA4LearningDemo() {
                   </button>
 
                   <button
-                    onClick={() => handleEvent('purchase')}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-xl"
-                  >
-                    Purchase
-                  </button>
+                  
+  onClick={() => {
+
+    window.dataLayer = window.dataLayer || [];
+
+    window.dataLayer.push({
+      event: "purchase",
+
+      ecommerce: {
+        transaction_id: "T" + Date.now(),
+
+        value: Number(
+          product.price.replace('₹', '').replace(',', '')
+        ),
+
+        currency: "INR",
+
+        items: [
+          {
+            item_name: product.name,
+            item_category: product.category,
+
+            price: Number(
+              product.price.replace('₹', '').replace(',', '')
+            ),
+
+            quantity: 1
+          }
+        ]
+      }
+    });
+
+    alert(`Purchase tracked for ${product.name}`);
+  }}
+  className="bg-purple-600 text-white px-4 py-2 rounded-xl"
+>
+  Purchase
+</button>
+                  
                 </div>
               </div>
             ))}
